@@ -1,0 +1,10 @@
+.venv/
+.env
+__pycache__/
+*.pyc
+.coverage
+output/
+tmp/
+.ruff_cache/
+.pytest_cache/
+.DS_Store
