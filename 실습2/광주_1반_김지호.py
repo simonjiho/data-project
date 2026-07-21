@@ -53,7 +53,8 @@ logging.basicConfig(
 logger = logging.getLogger("practice2")
 
 BASE_DIR = Path(__file__).resolve().parent
-INPUT_PATH = BASE_DIR / "Python_Practice2_Data.json"
+DATA_DIR = BASE_DIR.parent / "data"
+INPUT_PATH = DATA_DIR / "Python_Practice2_Data.json"
 OUTPUT_DIR = BASE_DIR / "output"
 VALID_CSV_PATH = OUTPUT_DIR / "valid_sales.csv"
 ERROR_JSON_PATH = OUTPUT_DIR / "validation_errors.json"

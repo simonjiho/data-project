@@ -51,9 +51,11 @@ Practice 1: 컴프리헨션, Counter, defaultdict, 제너레이터 실습.
 import sys
 import json
 from collections import Counter, defaultdict
+from pathlib import Path
 
+DATA_PATH = Path(__file__).resolve().parent.parent / "data" / "Python_Practice2_Data.json"
 
-with open("Python_Practice2_Data.json", encoding="utf-8") as file:
+with DATA_PATH.open(encoding="utf-8") as file:
     sales = json.load(file)
 
 
