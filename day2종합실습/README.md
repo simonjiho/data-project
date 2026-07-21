@@ -25,7 +25,7 @@ python -m pip install -r requirements.txt
 
 ```bash
 cd day2종합실습
-../.venv/bin/python 광주_1반_김지호_day2종합실습.py
+../.venv/bin/python 광주_1반_김지호.py
 ```
 
 ## 분석 단계
