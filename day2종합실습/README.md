@@ -34,7 +34,7 @@ cd day2종합실습
 3. 중복 처리와 기본 EDA
 4. Seaborn 정적 차트·범주형 Count bar plot·Plotly 인터랙티브 차트 생성
 5. `capital_gain`·`capital_loss`의 0을 보존하고 양수값 내부 IQR 극단값 제외
-6. Shapiro-Wilk 정규성 검정·분포 그래프·Q-Q plot 생성
+6. Shapiro-Wilk 정규성 검정·소득 그룹별 Boxplot·Q-Q plot 생성
 7. Mann-Whitney U(Wilcoxon rank-sum)·Welch t-test·카이제곱 검정·Cramér's V 해석
 8. sklearn Pipeline으로 Logistic Regression·Random Forest·Histogram Gradient Boosting 학습
 9. 정확도·F1·ROC-AUC·PR-AUC 비교 및 최고 모델 joblib 저장
@@ -63,7 +63,6 @@ cd day2종합실습
 - `capital_outlier_comparison.png`
 - `categorical_countplots.png`
 - `normality_diagnostics.png`
-- `seaborn_income_analysis.png`
 - `correlation_heatmap.png`
 - `plotly_occupation_income.html`
 - `adult_income_pipeline.joblib`
