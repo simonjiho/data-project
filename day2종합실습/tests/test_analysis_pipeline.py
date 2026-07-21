@@ -1,5 +1,6 @@
 """Day 2 종합실습의 핵심 데이터 처리 테스트."""
 
+from io import BytesIO
 import sys
 from pathlib import Path
 
@@ -9,6 +10,7 @@ import pandas as pd
 PROJECT_DIR = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_DIR))
 
+import src.analysis_pipeline as analysis_pipeline  # noqa: E402
 from src.analysis_pipeline import (  # noqa: E402
     COLUMNS,
     calculate_cramers_v,
@@ -18,7 +20,33 @@ from src.analysis_pipeline import (  # noqa: E402
     format_p_value,
     run_rank_sum_test,
     run_t_test,
+    validate_input,
 )
+
+
+def test_validate_input_downloads_missing_adult_data(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    """입력 파일이 없을 때 UCI 원본을 지정 경로에 저장하는지 검증"""
+    destination = tmp_path / "data" / "adult.data"
+    sample_row = (
+        b"39, State-gov, 77516, Bachelors, 13, Never-married, "
+        b"Adm-clerical, Not-in-family, White, Male, 2174, 0, 40, "
+        b"United-States, <=50K\n"
+    )
+
+    def fake_urlopen(download_request, timeout):
+        assert download_request.full_url == analysis_pipeline.ADULT_DATA_URL
+        assert timeout == 30
+        return BytesIO(sample_row)
+
+    monkeypatch.setattr(analysis_pipeline.request, "urlopen", fake_urlopen)
+
+    result = validate_input(destination)
+
+    assert result == destination.resolve()
+    assert destination.read_bytes() == sample_row
 
 
 def test_report_template_and_custom_filters_are_available() -> None:

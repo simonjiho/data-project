@@ -8,7 +8,7 @@
 - 입력 경로: `../data/adult.data`
 - 출처: <https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data>
 
-원본 파일은 `data/`에서 읽으며 코드가 직접 수정하지 않습니다. 정제 결과는 이 프로젝트의 `output/`에 별도로 저장합니다.
+최초 실행 시 입력 파일이 없으면 UCI 공식 URL에서 `data/adult.data`로 자동 다운로드합니다. 이후 실행에서는 저장된 원본 파일을 다시 사용하며 직접 수정하지 않습니다. 정제 결과는 이 프로젝트의 `output/`에 별도로 저장합니다.
 
 ## 환경 설정
 
@@ -19,6 +19,7 @@ python -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
 ```
+
 
 ## 실행
 

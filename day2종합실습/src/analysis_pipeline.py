@@ -2,6 +2,7 @@
 
 import time
 from pathlib import Path
+from urllib import error, request
 
 import joblib
 import matplotlib
@@ -82,16 +83,52 @@ POSITIVE_CLASS = ">50K"
 RANDOM_STATE = 42
 SIGNIFICANCE_LEVEL = 0.05
 REPORT_TEMPLATE_DIR = Path(__file__).resolve().parents[1] / "templates"
+ADULT_DATA_URL = (
+    "https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data"
+)
+
+
+def download_input(data_path: Path) -> Path:
+    """UCI 공식 URL에서 Adult Census 원본 파일을 안전하게 다운로드"""
+    data_path = data_path.expanduser().resolve()
+    data_path.parent.mkdir(parents=True, exist_ok=True)
+    temporary_path = data_path.with_name(f".{data_path.name}.download")
+    download_request = request.Request(
+        ADULT_DATA_URL,
+        headers={"User-Agent": "data-project/1.0"},
+    )
+
+    print(f"입력 파일이 없어 UCI에서 다운로드합니다: {ADULT_DATA_URL}")
+    try:
+        with request.urlopen(download_request, timeout=30) as response:
+            content = response.read()
+
+        first_row = next((row for row in content.splitlines() if row.strip()), b"")
+        if first_row.count(b",") != len(COLUMNS) - 1:
+            raise ValueError(
+                "다운로드한 파일이 Adult Census 원본 형식(15개 컬럼)과 다릅니다."
+            )
+
+        temporary_path.write_bytes(content)
+        temporary_path.replace(data_path)
+    except (error.URLError, TimeoutError) as download_error:
+        temporary_path.unlink(missing_ok=True)
+        raise OSError(
+            f"UCI Adult Census 데이터 다운로드에 실패했습니다: {ADULT_DATA_URL}"
+        ) from download_error
+    except Exception:
+        temporary_path.unlink(missing_ok=True)
+        raise
+
+    print(f"입력 파일 저장 완료: {data_path}")
+    return data_path
 
 
 def validate_input(data_path: Path) -> Path:
-    """Adult Census 입력 파일의 존재 여부를 검증"""
+    """Adult Census 입력 파일을 준비하고 비어 있지 않은지 검증"""
     data_path = data_path.expanduser().resolve()
     if not data_path.is_file():
-        raise FileNotFoundError(
-            f"입력 파일을 찾을 수 없습니다: {data_path}\n"
-            "강의자료의 UCI Adult Census Income 파일을 data/adult.data에 저장하세요."
-        )
+        download_input(data_path)
     if data_path.stat().st_size == 0:
         raise ValueError(f"입력 파일이 비어 있습니다: {data_path}")
     return data_path
