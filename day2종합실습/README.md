@@ -38,7 +38,20 @@ cd day2종합실습
 7. Mann-Whitney U(Wilcoxon rank-sum)·Welch t-test·카이제곱 검정·Cramér's V 해석
 8. sklearn Pipeline으로 Logistic Regression·Random Forest·Histogram Gradient Boosting 학습
 9. 정확도·F1·ROC-AUC·PR-AUC 비교 및 최고 모델 joblib 저장
-10. 용어 정리를 포함한 `report.md` 자동 생성
+10. Jinja2 템플릿으로 용어 정리를 포함한 `report.md` 자동 생성
+
+## 주요 폴더 구조
+
+```text
+day2종합실습/
+├── src/analysis_pipeline.py       # 데이터 처리·분석·모델링·렌더링 데이터 준비
+├── templates/report.md.j2         # 자동 생성 보고서의 Markdown 본문
+├── tests/test_analysis_pipeline.py
+├── 광주_1반_김지호_day2종합실습.py  # 실행 진입점
+└── output/                        # 실행 결과(자동 생성, Git 제외)
+```
+
+보고서 문장과 레이아웃은 `templates/report.md.j2`에서 관리하고, Python 코드는 계산 결과를 템플릿에 전달합니다. 템플릿에 필요한 값이 누락되면 `StrictUndefined` 설정으로 즉시 오류가 발생합니다.
 
 ## 학습·평가 데이터 분리
 

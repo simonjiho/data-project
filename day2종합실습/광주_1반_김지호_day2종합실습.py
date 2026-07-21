@@ -19,7 +19,7 @@ EDA·시각화·통계 검정·ML Pipeline·자동 보고서 생성을 순서대
 - 기술통계·상관계수·정규성·Wilcoxon rank-sum·Welch t-test·카이제곱·Cramér's V 해석
 - ColumnTransformer와 세 분류 모델을 각각 Pipeline으로 구성해 동일 조건 비교
 - 정확도·F1·ROC-AUC와 ROC Curve를 평가하고 최고 Pipeline을 joblib으로 저장·재로딩
-- 분석 결과와 본인 의견을 report.md로 자동 생성
+- 분석 결과와 본인 의견을 Jinja2 템플릿으로 report.md에 자동 생성
 
 
 주 학습내용은 다음과 같습니다.

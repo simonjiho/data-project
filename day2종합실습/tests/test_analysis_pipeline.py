@@ -13,11 +13,26 @@ from src.analysis_pipeline import (  # noqa: E402
     COLUMNS,
     calculate_cramers_v,
     clean_pandas,
+    create_report_environment,
     exclude_capital_outliers,
     format_p_value,
     run_rank_sum_test,
     run_t_test,
 )
+
+
+def test_report_template_and_custom_filters_are_available() -> None:
+    """보고서 템플릿 로딩과 숫자 표시 필터 구성을 검증"""
+    environment = create_report_environment()
+    source, filename, _ = environment.loader.get_source(
+        environment,
+        "report.md.j2",
+    )
+
+    assert filename.endswith("report.md.j2")
+    assert "# Adult Census Income 분석 보고서" in source
+    assert environment.filters["number"](1234.5, 2) == "1,234.50"
+    assert environment.filters["percent"](0.237, 1) == "23.7%"
 
 
 def test_clean_pandas_removes_duplicate_and_empty_target() -> None:
