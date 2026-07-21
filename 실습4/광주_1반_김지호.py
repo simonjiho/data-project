@@ -364,7 +364,7 @@ def run_chi_square_test(df: pd.DataFrame) -> None:
         effect_description = "중간 정도입니다"
     else:
         effect_description = "큽니다"
-    print(f"효과 크기 해석: Cramér's V가 {cramers_v:.4f}로 관계의 크기는 {effect_description}.")
+    print(f"효과 크기 해석: Cramér's V가 {cramers_v:.4f} 입니다.")
 
     if p_value < SIGNIFICANCE_LEVEL and cramers_v < 0.05:
         print(

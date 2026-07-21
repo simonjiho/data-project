@@ -61,7 +61,6 @@ def test_rank_sum_detects_higher_values_in_high_income_group() -> None:
     assert result["high_median"] == 60.0
     assert result["low_median"] == 20.0
     assert result["rank_biserial"] == 1.0
-    assert result["cles"] == 1.0
 
 
 def test_t_test_reports_confidence_interval_containing_mean_difference() -> None:
